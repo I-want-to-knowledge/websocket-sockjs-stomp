@@ -50,8 +50,8 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 				return new MyPrincipal("test");
 			}
 		}).withSockJS(); */
-		registry.addEndpoint("/webServer").withSockJS();// 广播
-    registry.addEndpoint("/queueServer").withSockJS();// 点对点
+		registry.addEndpoint("/broadcast").withSockJS();// 广播
+    registry.addEndpoint("/point-to-point").withSockJS();// 点对点
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		// 定义一个或多个客户端订阅的地址的前缀消息，服务端-->客户端
-		registry.enableSimpleBroker("/topic","/user");//topic用来广播，queue用来实现p2p
+		registry.enableSimpleBroker("/bro","/ptp");//bro用来广播，ptp用来实现p2p
 		
 		/*// 定义服务端接收消息的前缀，客户端-->服务端
 		registry.setApplicationDestinationPrefixes("/app");
@@ -74,10 +74,15 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 		registration.interceptors(new ChannelInterceptor() {
 			@Override
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-				if (!StompCommand.CONNECT.equals(accessor.getCommand())) {
-					LOG.info("断开 : {}", accessor.getCommand());
-					LOG.info("message : {}", message);
+ 				StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+				StompCommand command = accessor.getCommand();
+				if (!StompCommand.CONNECT.equals(command)) {
+					if (!StompCommand.SUBSCRIBE.equals(command)) {
+						LOG.info("断开 : {}", command);
+						LOG.info("message : {}", message);
+					} else {
+						LOG.info("订阅成功！（{}）", command);
+					}
 					return message;
 				}
 				
