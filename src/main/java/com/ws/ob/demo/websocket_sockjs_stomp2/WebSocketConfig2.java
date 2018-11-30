@@ -49,7 +49,7 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 				// 服务器和客户端保持一致的标志，可以用用户名和用户id
 				return new MyPrincipal("test");
 			}
-		}).withSockJS();*/
+		}).withSockJS(); */
 		registry.addEndpoint("/webServer").withSockJS();// 广播
     registry.addEndpoint("/queueServer").withSockJS();// 点对点
 	}
