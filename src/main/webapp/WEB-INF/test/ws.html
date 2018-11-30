@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Java后端WebSocket的Tomcat实现</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.bootcss.com/sockjs-client/1.3.0/sockjs.min.js"></script>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="ws.js"></script>
+</head>
+<body>
+<div>
+    <div>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button><br/><br/>
+    </div>
+    <div id="calculationDiv">
+        <label>Number One:</label><input type="text" id="num1" /><br/>
+        <label>Number Two:</label><input type="text" id="num2" /><br/><br/>
+        <button id="sendNum" onclick="sendNum();">Send to Add</button>
+        <p id="calResponse"></p>
+    </div>
+</div>
+</body>
+</html>
