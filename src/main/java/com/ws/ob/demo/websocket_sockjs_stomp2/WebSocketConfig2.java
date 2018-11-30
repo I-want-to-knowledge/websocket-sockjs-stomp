@@ -55,7 +55,7 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 	}
 	
 	/**
-	 * 配置一个简单的消息代理，发送应用程序消息会带有‘/app’前缀 
+	 * 配置一个简单的消息代理，发送应用程序消息会带有‘/app’前缀
 	 */
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
