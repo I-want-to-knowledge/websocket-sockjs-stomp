@@ -36,6 +36,7 @@ public class PushServer/* implements DisposableBean*/ {
 		
 		// 对 name 用户发送消息
 		template.convertAndSendToUser(name, "/message", name + " 登录成功！");
+		// template.convertAndSend("/user/p2p/message", name + " 登录成功！(个人)");
 		
 		// 对订阅了 ‘/bro/getResponse’ 的所有用户推送消息
 		template.convertAndSend("/bro/getResponse", name + " 登录成功！");

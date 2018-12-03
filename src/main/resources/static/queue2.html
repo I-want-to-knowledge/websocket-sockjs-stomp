@@ -14,20 +14,18 @@
 		$("#response").html();
 	}
 	function connect() {
-		var socket = new SockJS("/point-to-point");
+		var socket = new SockJS("/pointToPoint");
 		stompClient = Stomp.over(socket);
 		stompClient.connect({"Token":Token}, function(frame) {
 			setConnected(true);
 			console.log('Connected: ' + frame);
-			stompClient.subscribe('/user/'
-					+ document.getElementById('user').value + '/message',
-					function(response) {
-						var response1 = document.getElementById('response');
-						var p = document.createElement('p');
-						p.style.wordWrap = 'break-word';
-						p.appendChild(document.createTextNode(response.body));
-						response1.appendChild(p);
-					});
+			stompClient.subscribe('/user/' + Token + '/message', function(response) {
+				var response1 = document.getElementById('response');
+				var p = document.createElement('p');
+				p.style.wordWrap = 'break-word';
+				p.appendChild(document.createTextNode(response.body));
+				response1.appendChild(p);
+			});
 		},
 		function errorCallBack (error) {
 		    // 连接失败时（服务器响应 ERROR 帧）的回调方法
@@ -55,9 +53,10 @@
 	<div>
 		<div>
 			<labal>用户</labal>
-			<input type="text" id="user" />
+			<!-- <input type="text" id="user" /> -->
 			<button id="connect" onclick="connect();">Connect</button>
 			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+			<p id="response"></p>
 		</div>
 	</div>
 

@@ -51,7 +51,7 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 			}
 		}).withSockJS(); */
 		registry.addEndpoint("/broadcast").withSockJS();// 广播
-    registry.addEndpoint("/point-to-point").withSockJS();// 点对点
+    registry.addEndpoint("/pointToPoint").withSockJS();// 点对点
 	}
 	
 	/**
@@ -60,13 +60,13 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 		// 定义一个或多个客户端订阅的地址的前缀消息，服务端-->客户端
-		registry.enableSimpleBroker("/bro","/ptp");//bro用来广播，ptp用来实现p2p
+		registry.enableSimpleBroker("/bro","/p2p");//bro用来广播，p2p用来实现p2p
 		
 		/*// 定义服务端接收消息的前缀，客户端-->服务端
-		registry.setApplicationDestinationPrefixes("/app");
+		registry.setApplicationDestinationPrefixes("/app");*/
 		
 		// 点对点使用的订阅前缀
-		registry.setUserDestinationPrefix("/user/");*/
+		registry.setUserDestinationPrefix("/user/");
 	}
 	
 	@Override
