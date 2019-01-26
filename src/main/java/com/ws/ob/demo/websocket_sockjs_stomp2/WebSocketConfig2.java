@@ -75,6 +75,11 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 			@Override
 			public Message<?> preSend(Message<?> message, MessageChannel channel) {
  				StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+				if (accessor == null) {
+					LOG.error("accessor值不能为空！");
+					return null;
+				}
+				// assert accessor != null : "accessor值不能为空！";// 断言不成立会报错，不过要开启-ea开关
 				StompCommand command = accessor.getCommand();
 				if (!StompCommand.CONNECT.equals(command)) {
 					if (!StompCommand.SUBSCRIBE.equals(command)) {
@@ -108,7 +113,7 @@ public class WebSocketConfig2 implements WebSocketMessageBrokerConfigurer {
 	class MyPrincipal implements Principal {
 		private String name;
 		
-		public MyPrincipal(String name) {
+		MyPrincipal(String name) {
 			this.name = name;
 		}
 
